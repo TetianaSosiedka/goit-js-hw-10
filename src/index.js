@@ -29,5 +29,9 @@ refs.input.addEventListener(
 
 function handleInputCountry(event) {
   const userRequest = event.target.value.trim('');
+  if (userRequest === '') {
+    renderCountries(userRequest);
+    return;
+  }
   return fetchCountries(userRequest);
 }
