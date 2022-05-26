@@ -13,17 +13,7 @@ const DEBOUNCE_DELAY = 300;
 refs.input.addEventListener(
   'input',
   debounce(event => {
-    handleInputCountry(event)
-      .then(data => {
-        if (data.length > 10) {
-          Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-        }
-        renderCountries(data);
-      })
-      .catch(error => {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-        renderCountries('');
-      });
+    handleInputCountry(event);
   }, DEBOUNCE_DELAY),
 );
 
@@ -33,5 +23,15 @@ function handleInputCountry(event) {
     renderCountries(userRequest);
     return;
   }
-  return fetchCountries(userRequest);
+  return fetchCountries(userRequest)
+    .then(data => {
+      if (data.length > 10) {
+        Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+      }
+      renderCountries(data);
+    })
+    .catch(error => {
+      Notiflix.Notify.failure('Oops, there is no country with that name');
+      renderCountries('');
+    });
 }
