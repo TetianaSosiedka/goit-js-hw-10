@@ -22,7 +22,7 @@ export const renderCountries = arrCountries => {
         </li>`;
       })
       .join('');
-  } else if (arrCountries.length > 10 && arrCountries.length === '') {
+  } else if (arrCountries.length > 10) {
     markup = `<li></li>`;
   }
 
